@@ -43,11 +43,15 @@ class Server {
         this.io.on('connection', socket => {
 
             socket.on('disconnect', () => {
-                console.log('cliente desconectado', socket.id);
+                // console.log('cliente desconectado', socket.id);
             });
+            /* callback es la referencia a la funcion desde el cliente */
+            socket.on('enviar-mensaje', (payload, callback) => {
 
-            socket.on('enviar-mensaje', (payload) => {
-                this.io.emit('enviar-mensaje', payload)
+                const id = 123456;
+                callback({id, fecha: new Date().getTime()})
+
+                // this.io.emit('enviar-mensaje', payload);
             })
         });
     }
