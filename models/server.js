@@ -41,11 +41,14 @@ class Server {
 
     sockets() {
         this.io.on('connection', socket => {
-            console.log('cliente conectado', socket.id);
 
             socket.on('disconnect', () => {
                 console.log('cliente desconectado', socket.id);
             });
+
+            socket.on('enviar-mensaje', (payload) => {
+                this.io.emit('enviar-mensaje', payload)
+            })
         });
     }
 
