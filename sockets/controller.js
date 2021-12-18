@@ -4,12 +4,15 @@ const ticketControl = new TicketControl();
 
 const socketController =  (socket) => {
 
+    socket.emit('ultimo-ticket', ticketControl.ultimo)
+
   
     /* callback es la referencia a la funcion desde el cliente */
-    socket.on('enviar-mensaje', (payload, callback) => {
-        const id = 123456;
-        callback(id);
-        socket.broadcast.emit('enviar-mensaje', payload);
+    socket.on('siguiente-ticket', (payload, callback) => {
+        const siguiente = ticketControl.siguiente();
+        callback(siguiente);
+
+        /* Notificar que hay un nuevo ticket pendiente de asignar */
     })
 }
 
